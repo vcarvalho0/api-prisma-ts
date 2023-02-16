@@ -6,7 +6,8 @@
   "private": "true",
   "scripts": {
     "build": "tsc",
-    "dev": "tsnd --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "yarn docker:down && yarn docker:up && yarn server",
+    "server": "tsnd --transpile-only --ignore-watch node_modules src/server.ts",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:destroy": "docker-compose down --volumes --remove-orphans",
