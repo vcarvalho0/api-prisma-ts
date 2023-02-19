@@ -6,11 +6,6 @@ const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   clearMocks: true,
-  globals: {
-    'ts-jest': {
-      isolatedModules: true
-    }
-  },
   modulePathIgnorePatterns: ['<rootDir/dist>'],
   moduleNameMapper: pathsToModuleNameMapper(
     compilerOptions.paths,
