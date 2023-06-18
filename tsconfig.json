@@ -4,7 +4,6 @@
     "module": "commonjs",
     "sourceMap": true,
     "outDir": "./dist",
-    "rootDir": "./",
     "lib":  ["ESNext"],
     "strict": true,
     "noUnusedLocals": true,
@@ -13,9 +12,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "moduleResolution": "node",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
+      "@src/*": ["./src/*"]
     },
     "rootDirs": ["./src"],
     "allowSyntheticDefaultImports": true,
@@ -25,7 +24,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "**/*.ts"
+    "./src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
