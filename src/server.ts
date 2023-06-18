@@ -1,13 +1,14 @@
-import express from 'express'
-import cors from 'cors'
-const PORT = 3000
+import "./config/module-alias";
+import express from "express";
+import cors from "cors";
+import ENV from "./env";
 
-const app = express()
+const app = express();
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(cors)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running at ${PORT}`)
-})
+app.listen(ENV.Application.PORT, () => {
+  console.log(`🚀 Server is running at ${ENV.Application.PORT}`);
+});
