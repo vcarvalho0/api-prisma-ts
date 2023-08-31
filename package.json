@@ -6,8 +6,8 @@
   "private": "true",
   "scripts": {
     "build": "tsc",
-    "dev": "yarn docker:down && yarn docker:up && yarn start",
-    "start": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev": "ts-node-dev --transpile-only src/index.ts | pino-pretty -c",
+    "start": "yarn build && node dist/index.js",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:destroy": "docker-compose down --volumes --remove-orphans",
