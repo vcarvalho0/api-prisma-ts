@@ -1,14 +1,46 @@
 import "./config/module-alias";
-import express from "express";
-import cors from "cors";
+import express, { Application } from "express";
+import { prisma } from "@src/providers/database/prisma-client";
 import ENV from "./env";
+import logger from "./logger";
+import cors from "cors";
+import { routes } from "./routes";
 
-const app = express();
+export class SetupServer {
+  private express: express.Application;
+  private port = ENV.Application.PORT;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+  constructor() {
+    this.express = express();
+  }
 
-app.listen(ENV.Application.PORT, () => {
-  console.log(`🚀 Server is running at ${ENV.Application.PORT}`);
-});
+  public async init(): Promise<void> {
+    this.expressSetup();
+    await this.databaseSetup();
+  }
+
+  private expressSetup(): void {
+    this.express.use(express.json());
+    this.express.use(cors());
+    this.express.use(express.urlencoded({ extended: true }));
+    this.express.use(routes);
+  }
+
+  public getApp(): Application {
+    return this.express;
+  }
+
+  public async databaseSetup(): Promise<void> {
+    await prisma.$connect();
+  }
+
+  public async close(): Promise<void> {
+    await prisma.$disconnect();
+  }
+
+  public start(): void {
+    this.express.listen(this.port, () => {
+      logger.info(`Server listening on port ${this.port}`);
+    });
+  }
+}
