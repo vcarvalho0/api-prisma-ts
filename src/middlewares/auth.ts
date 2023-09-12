@@ -17,9 +17,9 @@ export function auth(
     const claims = AuthProvider.decodeToken(token as string);
     req.context = { userId: claims.sub };
     next();
-  } catch (e) {
+  } catch (error) {
     return res
       .status(401)
-      .json({ auth: false, error: "Invalid token or expired" });
+      .json({ auth: false, error: `Invalid token or expired, ${error}` });
   }
 }
